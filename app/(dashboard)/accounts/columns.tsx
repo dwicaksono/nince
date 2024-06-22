@@ -3,9 +3,10 @@
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { ColumnDef } from '@tanstack/react-table';
-import { ArrowUpDown, MoreHorizontal } from 'lucide-react';
+import { ArrowUpDown } from 'lucide-react';
 import { InferResponseType } from 'hono';
 import { client } from '@/lib/hono';
+import Actions from './actions'; // Replace './actions' with the correct file path for the Actions component
 
 export type ResponseType = InferResponseType<
   typeof client.api.accounts.$get,
@@ -48,5 +49,9 @@ export const columns: ColumnDef<ResponseType>[] = [
         </Button>
       );
     },
+  },
+  {
+    id: 'actions',
+    cell: ({ row }) => <Actions id={row.original.id} key={row.original.id} />, // Replace './actions' with the correct file path for the Actions component
   },
 ];

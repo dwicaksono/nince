@@ -3,15 +3,17 @@ import React from 'react';
 import CardAddAccount from '@/features/accounts/components/card-add-account';
 import { columns } from './columns';
 import { DataTable } from '@/components/data-table';
-import { useGetAccount } from '@/features/accounts/api/use-get-accounts';
+import { useGetAccounts } from '@/features/accounts/api/use-get-accounts';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useBulkDeleteAccounts } from '@/features/accounts/api/use-bulk-delete';
+import { useOpenAccount } from '@/features/accounts/hooks/useOpenAccount';
 
 const AccountPage = () => {
-  const { data: accounts, isLoading } = useGetAccount();
+  const { data: accounts, isLoading } = useGetAccounts();
+  const { id, isOpen } = useOpenAccount();
   const { mutate, isPending } = useBulkDeleteAccounts();
   const isDisable = isLoading || isPending;
-
+  console.log({ id, isOpen });
   if (isLoading) {
     return (
       <div className="mx-auto -mt-24 w-full max-w-screen-2xl pb-10">
