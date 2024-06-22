@@ -4,31 +4,28 @@ import { client } from '@/lib/hono';
 import { toast } from 'sonner';
 
 type ResponseType = InferResponseType<
-  (typeof client.api.categories)[':id']['$patch']
+  (typeof client.api.transactions)['bulk-create']['$post']
 >;
 type RequestType = InferRequestType<
-  (typeof client.api.categories)[':id']['$patch']
+  (typeof client.api.transactions)['bulk-create']['$post']
 >['json'];
 
-export const useEditCategory = (id?: string) => {
+export const useBulkCreateTransactions = () => {
   const queryClient = useQueryClient();
   const mutation = useMutation<ResponseType, Error, RequestType>({
     mutationFn: async (json) => {
-      const response = await client.api.categories[':id']['$patch']({
-        param: { id },
+      const response = await client.api.transactions['bulk-create']['$post']({
         json,
       });
       return await response.json();
     },
     onSuccess: () => {
-      toast.success('Account upated');
-      queryClient.invalidateQueries({ queryKey: ['categories', { id }] });
-      queryClient.invalidateQueries({ queryKey: ['categories'] });
       queryClient.invalidateQueries({ queryKey: ['transactions'] });
-      //TODO next summary
+      toast.success('Transactions created');
+      // invalidate summary
     },
     onError: () => {
-      toast.error('Failed to upadted account');
+      toast.error('Failed to create transactions');
     },
   });
   return mutation;

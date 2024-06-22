@@ -4,31 +4,30 @@ import { client } from '@/lib/hono';
 import { toast } from 'sonner';
 
 type ResponseType = InferResponseType<
-  (typeof client.api.categories)[':id']['$patch']
+  (typeof client.api.transactions)[':id']['$patch']
 >;
 type RequestType = InferRequestType<
-  (typeof client.api.categories)[':id']['$patch']
+  (typeof client.api.transactions)[':id']['$patch']
 >['json'];
 
-export const useEditCategory = (id?: string) => {
+export const useEditTransaction = (id?: string) => {
   const queryClient = useQueryClient();
   const mutation = useMutation<ResponseType, Error, RequestType>({
     mutationFn: async (json) => {
-      const response = await client.api.categories[':id']['$patch']({
+      const response = await client.api.transactions[':id']['$patch']({
         param: { id },
         json,
       });
       return await response.json();
     },
     onSuccess: () => {
-      toast.success('Account upated');
-      queryClient.invalidateQueries({ queryKey: ['categories', { id }] });
-      queryClient.invalidateQueries({ queryKey: ['categories'] });
+      toast.success('Transaction upated');
+      queryClient.invalidateQueries({ queryKey: ['transactions', { id }] });
       queryClient.invalidateQueries({ queryKey: ['transactions'] });
       //TODO next summary
     },
     onError: () => {
-      toast.error('Failed to upadted account');
+      toast.error('Failed to upadted transaction');
     },
   });
   return mutation;

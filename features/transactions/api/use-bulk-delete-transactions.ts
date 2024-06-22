@@ -4,31 +4,28 @@ import { client } from '@/lib/hono';
 import { toast } from 'sonner';
 
 type ResponseType = InferResponseType<
-  (typeof client.api.categories)[':id']['$patch']
+  (typeof client.api.transactions)['bulk-delete']['$post']
 >;
 type RequestType = InferRequestType<
-  (typeof client.api.categories)[':id']['$patch']
+  (typeof client.api.transactions)['bulk-delete']['$post']
 >['json'];
 
-export const useEditCategory = (id?: string) => {
+export const useBulkDeleteTransactions = () => {
   const queryClient = useQueryClient();
   const mutation = useMutation<ResponseType, Error, RequestType>({
     mutationFn: async (json) => {
-      const response = await client.api.categories[':id']['$patch']({
-        param: { id },
+      const response = await client.api.transactions['bulk-delete']['$post']({
         json,
       });
       return await response.json();
     },
     onSuccess: () => {
-      toast.success('Account upated');
-      queryClient.invalidateQueries({ queryKey: ['categories', { id }] });
-      queryClient.invalidateQueries({ queryKey: ['categories'] });
       queryClient.invalidateQueries({ queryKey: ['transactions'] });
-      //TODO next summary
+      toast.success('Transaction deleted');
+      // invalidate summary
     },
     onError: () => {
-      toast.error('Failed to upadted account');
+      toast.error('Failed to delete transaction');
     },
   });
   return mutation;

@@ -3,33 +3,33 @@ import React from 'react';
 import { columns } from './columns';
 import { DataTable } from '@/components/data-table';
 import { Skeleton } from '@/components/ui/skeleton';
-import CardAddCategory from '@/features/categories/components/card-add-category';
-import { useGetCategories } from '@/features/categories/api/use-get-categories';
-import { useBulkDeleteCategories } from '@/features/categories/api/use-bulk-delete';
+import CardAddTransaction from '@/features/transactions/components/card-add-transaction';
+import { useBulkDeleteTransactions } from '@/features/transactions/api/use-bulk-delete-transactions';
+import { useGetTransactions } from '@/features/transactions/api/use-get-transactions';
 
-const AccountPage = () => {
-  const { data: categories, isLoading } = useGetCategories();
-  const { mutate, isPending } = useBulkDeleteCategories();
+const TransactionPage = () => {
+  const { data: transactions, isLoading } = useGetTransactions();
+  const { mutate, isPending } = useBulkDeleteTransactions();
   const isDisable = isLoading || isPending;
 
   if (isLoading) {
     return (
       <div className="mx-auto -mt-24 w-full max-w-screen-2xl pb-10">
-        <CardAddCategory>
+        <CardAddTransaction>
           <Skeleton className="my-2 h-8 w-full" />
           <Skeleton className="my-2 h-8 w-full" />
           <Skeleton className="my-2 h-8 w-full" />
-        </CardAddCategory>
+        </CardAddTransaction>
       </div>
     );
   }
   return (
     <div className="mx-auto -mt-24 w-full max-w-screen-2xl pb-10">
-      <CardAddCategory>
+      <CardAddTransaction>
         <DataTable
           columns={columns}
-          data={categories || []}
-          filterKey="name"
+          data={transactions || []}
+          filterKey="payee"
           disable={isDisable}
           onDelete={(row) => {
             //@ts-ignore
@@ -37,9 +37,9 @@ const AccountPage = () => {
             mutate({ ids });
           }}
         />
-      </CardAddCategory>
+      </CardAddTransaction>
     </div>
   );
 };
 
-export default AccountPage;
+export default TransactionPage;
