@@ -15,6 +15,13 @@
       "when": 1718272555140,
       "tag": "0001_big_taskmaster",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1719033266782,
+      "tag": "0002_blushing_cerebro",
+      "breakpoints": true
     }
   ]
 }
