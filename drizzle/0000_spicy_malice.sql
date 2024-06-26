@@ -1,3 +1,28 @@
+CREATE TABLE IF NOT EXISTS "mockInterview" (
+	"id" text PRIMARY KEY NOT NULL,
+	"jsonMockResponse" text NOT NULL,
+	"jobPosition" varchar NOT NULL,
+	"jobDescription" varchar NOT NULL,
+	"jobExperience" varchar NOT NULL,
+	"createdBy" varchar,
+	"createdAt" date DEFAULT now(),
+	"mockId" varchar NOT NULL
+);
+--> statement-breakpoint
+CREATE TABLE IF NOT EXISTS "accounts" (
+	"id" text PRIMARY KEY NOT NULL,
+	"pladId" text,
+	"name" text NOT NULL,
+	"user_id" text NOT NULL
+);
+--> statement-breakpoint
+CREATE TABLE IF NOT EXISTS "categories" (
+	"id" text PRIMARY KEY NOT NULL,
+	"pladId" text,
+	"name" text NOT NULL,
+	"user_id" text NOT NULL
+);
+--> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "transactions" (
 	"id" text PRIMARY KEY NOT NULL,
 	"amount" integer NOT NULL,

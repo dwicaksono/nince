@@ -60,7 +60,7 @@ const AuthTemplate: FC<PropsWithChildren> = ({ children }) => {
               />
 
               <h1 className="mt-2 text-2xl text-gray-900 sm:text-3xl md:text-4xl">
-                Welcome to Nince 🎁
+                Welcome to Mocksya 🎁
               </h1>
 
               <p className="mt-3 text-sm leading-tight text-white/50">

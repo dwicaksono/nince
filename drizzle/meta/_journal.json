@@ -5,29 +5,8 @@
     {
       "idx": 0,
       "version": "5",
-      "when": 1718271741017,
-      "tag": "0000_exotic_centennial",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "5",
-      "when": 1718272555140,
-      "tag": "0001_big_taskmaster",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "5",
-      "when": 1719033266782,
-      "tag": "0002_blushing_cerebro",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "5",
-      "when": 1719041417884,
-      "tag": "0003_secret_veda",
+      "when": 1719425724484,
+      "tag": "0000_spicy_malice",
       "breakpoints": true
     }
   ]

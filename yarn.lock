@@ -682,6 +682,11 @@
   resolved "https://registry.yarnpkg.com/@floating-ui/utils/-/utils-0.2.2.tgz#d8bae93ac8b815b2bd7a98078cf91e2724ef11e5"
   integrity sha512-J4yDIIthosAsRZ5CPYP/jQvUAQtlZTTD/4suA08/FEnlxqW3sKS9iAhgsa9VYLZ6vDHn/ixJgIqRQPotoBjxIw==
 
+"@google/generative-ai@^0.13.0":
+  version "0.13.0"
+  resolved "https://registry.yarnpkg.com/@google/generative-ai/-/generative-ai-0.13.0.tgz#7a22e4738f31b20c67104699e2166094900fc43e"
+  integrity sha512-F3rI52SbGS8bsFu4bWFfOPdtq91RsBzeVLsbJy/kt7zCuaBr28toR/8zS12zXjj6USIJd0rGeF2HsuPONUz+6w==
+
 "@hono/clerk-auth@^2.0.0":
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/@hono/clerk-auth/-/clerk-auth-2.0.0.tgz#afeefb8110b6b44b09c631b00bb9594b49873eb0"

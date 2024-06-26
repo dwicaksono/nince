@@ -1,4 +1,12 @@
-import { pgTable, text, integer, timestamp } from 'drizzle-orm/pg-core';
+import {
+  pgTable,
+  text,
+  integer,
+  timestamp,
+  varchar,
+  serial,
+  date,
+} from 'drizzle-orm/pg-core';
 import { createInsertSchema } from 'drizzle-zod';
 import { relations } from 'drizzle-orm';
 import { z } from 'zod';
@@ -53,3 +61,15 @@ export const transactionsRelations = relations(transactions, ({ one }) => ({
 export const insertTransactionsSchema = createInsertSchema(transactions, {
   date: z.coerce.date(),
 });
+
+export const MockInterview = pgTable('mockInterview', {
+  id: text('id').primaryKey(),
+  jsonMockResponse: text('jsonMockResponse').notNull(),
+  jobPosition: varchar('jobPosition').notNull(),
+  jobDescription: varchar('jobDescription').notNull(),
+  jobExperience: varchar('jobExperience').notNull(),
+  createdBy: varchar('createdBy'),
+  createdAt: date('createdAt').defaultNow(),
+  mockId: varchar('mockId').notNull(),
+});
+export const insertMockInterviewSchema = createInsertSchema(MockInterview);
