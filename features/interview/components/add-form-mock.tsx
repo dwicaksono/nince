@@ -42,7 +42,6 @@ export const AddFormInterview = () => {
     mutation.mutate(values, {
       onSuccess: (data) => {
         form.reset();
-
         //@ts-ignore
         push(`/interview/${data.data.mockId}`);
 

@@ -6,7 +6,9 @@ import { currentUser } from '@clerk/nextjs/server';
 import { clerkMiddleware, getAuth } from '@hono/clerk-auth';
 import { zValidator } from '@hono/zod-validator';
 import { createId } from '@paralleldrive/cuid2';
+import { eq } from 'drizzle-orm';
 import { Hono } from 'hono';
+import { z } from 'zod';
 
 const app = new Hono()
   .get('/', clerkMiddleware(), async (c) => {
@@ -28,9 +30,42 @@ const app = new Hono()
     if (!data) {
       return c.json({ error: 'No mock interviews found' }, 404);
     }
-
     return c.json({ data });
   })
+  .get(
+    '/:id',
+    clerkMiddleware(),
+    zValidator('param', z.object({ id: z.string().optional() })),
+    async (c) => {
+      const auth = getAuth(c);
+      const { id } = c.req.valid('param');
+      if (!id) {
+        return c.json({ error: 'Invalid id' }, 400);
+      }
+      const [data] = await db
+        .select({
+          id: MockInterview.id,
+          jobPosition: MockInterview.jobPosition,
+          jobDescription: MockInterview.jobDescription,
+          jobExperience: MockInterview.jobExperience,
+          jsonMockResponse: MockInterview.jsonMockResponse,
+          createdBy: MockInterview.createdBy,
+          mockId: MockInterview.mockId,
+        })
+        .from(MockInterview)
+        .where(eq(MockInterview.mockId, id));
+
+      if (!data) {
+        return c.json({ error: 'No mock interview found' }, 404);
+      }
+      const result = {
+        ...data,
+        jsonMockResponse: JSON.parse(data.jsonMockResponse),
+      };
+
+      return c.json({ result });
+    },
+  )
   .post(
     '/',
     clerkMiddleware(),
