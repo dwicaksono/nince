@@ -26,7 +26,9 @@ const app = new Hono()
         createdBy: MockInterview.createdBy,
         createdAt: MockInterview.createdAt,
       })
-      .from(MockInterview);
+      .from(MockInterview)
+      .where(eq(MockInterview.createdBy, auth.userId))
+      .orderBy(MockInterview.createdAt);
     if (!data) {
       return c.json({ error: 'No mock interviews found' }, 404);
     }
@@ -60,7 +62,6 @@ const app = new Hono()
       }
       const result = {
         ...data,
-        jsonMockResponse: JSON.parse(data.jsonMockResponse),
       };
 
       return c.json({ result });

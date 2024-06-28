@@ -13,7 +13,13 @@ export const useGetOneMock = (id?: string) => {
         throw new Error('Failed to fetch mock interview data');
       }
       const data = await response.json();
-      return data.result;
+      if (!data.result) {
+        throw new Error('No mock interview found');
+      }
+      return {
+        ...data.result,
+        jsonMockResponse: JSON.parse(data.result.jsonMockResponse),
+      };
     },
   });
   return query;

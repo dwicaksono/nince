@@ -73,3 +73,17 @@ export const MockInterview = pgTable('mockInterview', {
   mockId: varchar('mockId').notNull(),
 });
 export const insertMockInterviewSchema = createInsertSchema(MockInterview);
+
+export const userAnswers = pgTable('userAnswers', {
+  id: serial('id').primaryKey(),
+  mockIdRef: varchar('mockId').notNull(),
+  question: varchar('question').notNull(),
+  answer: varchar('answer').notNull(),
+  userId: varchar('userId').notNull(),
+  feedback: varchar('feedback'),
+  userAnswers: varchar('userAnswers'),
+  rating: varchar('rating'),
+  userEmail: varchar('userEmail'),
+  createdAt: date('createdAt').defaultNow(),
+});
+export const insertUserAnswersSchema = createInsertSchema(userAnswers);
