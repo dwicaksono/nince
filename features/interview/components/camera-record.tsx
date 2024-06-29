@@ -35,6 +35,9 @@ const CameraRecord = ({ questions, answer }: Props) => {
   const handleRecoding = () => {
     if (isRecording) {
       stopSpeechToText();
+      if (results.length > 0) {
+        console.log(results);
+      }
     } else {
       startSpeechToText();
     }
@@ -66,7 +69,7 @@ const CameraRecord = ({ questions, answer }: Props) => {
         <Mic2 className="size-4" />
         {isRecording ? 'Stop Recording' : 'Start Recording'}
       </Button>
-      <p>{userAnswer}q</p>
+      <p>{userAnswer}</p>
     </div>
   );
 };
